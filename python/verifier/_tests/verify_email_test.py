@@ -1,7 +1,7 @@
 
 
 
-from python import verify_email
+from python.verifier import verify_email
 
 
 print(verify_email("test@gmail.cm"))

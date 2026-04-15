@@ -1,6 +1,6 @@
 {
-  "name": "@jayaditya/emailverifier",
-  "version": "1.0.1",
+  "name": "@anclp/emailverifier",
+  "version": "1.0.0",
   "main": "index.js",
   "repository": {
     "type": "git",
