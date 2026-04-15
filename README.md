@@ -1,4 +1,5 @@
-![Build Status](https://github.com)
+[![Build cross platform binaries and sync to repos](https://github.com/jay6909/go_email_verifier/actions/workflows/release.yml/badge.svg)](https://github.com/jay6909/go_email_verifier/actions/workflows/release.yml)
+
 # Go Email Verifier (Core)
 
 A high-performance email verification engine written in Go. This repo serves as the core logic for multiple language wrappers (Node.js, Python, etc.).

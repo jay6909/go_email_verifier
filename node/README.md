@@ -1,6 +1,10 @@
-![NPM Version](https://shields.io)
-![Build Status](https://github.com)
+# @anclp/emailverifier
 
+[![NPM Version](https://shields.io)](https://npmjs.com)
+[![Build Status](https://github.com)](https://github.com)
+[![NPM Downloads](https://shields.io)](https://npmjs.com)
+
+[![Publish to npm](https://github.com/jay6909/node_email_verifier/actions/workflows/release.yml/badge.svg)](https://github.com/jay6909/node_email_verifier/actions/workflows/release.yml)
 # @anclp/emailverifier
 
 Ultra-fast email verification for Node.js, powered by a Go-compiled native engine.
