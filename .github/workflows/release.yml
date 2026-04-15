@@ -39,7 +39,7 @@ jobs:
         run: |
           go build -o libverifier.${{ matrix.ext }} -buildmode=c-shared .
           # Move it to the Python package folder
-          cp libverifier.${{ matrix.ext }} python/verifier/
+          cp libverifier.${{ matrix.ext }} python/
           
           # Move it to the Node package folder
           cp libverifier.${{ matrix.ext }} node/
