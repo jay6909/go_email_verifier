@@ -5,6 +5,7 @@ package main
 */
 import "C"
 import (
+	"encoding/json"
 	"net"
 
 	"github.com/jay6909/go_email_verifier/emailverifier"
@@ -31,6 +32,17 @@ func Verify(cEmail *C.char) C.int {
 	}
 
 	return 0
+}
+
+//export VerifyBatch
+func VerifyBatch(cJsonEmails *C.char) *C.char {
+	var emails []string
+	json.Unmarshal([]byte(C.GoString(cJsonEmails)), &emails)
+
+	results := emailverifier.VerifyBatch(emails)
+
+	output, _ := json.Marshal(results)
+	return C.CString(string(output))
 }
 
 // Required for c-shared build mode

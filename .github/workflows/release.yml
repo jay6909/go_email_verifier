@@ -65,13 +65,14 @@ jobs:
           cp bins/libverifier-macos-latest/libverifier.dylib node_dest/
           
           cd node_dest
+          git checkout -b v1-binaries
           npm version patch --no-git-tag-version
           git add .
           # 3. Commit only if there are changes
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "chore: update binaries from core"
+            git commit -m "chore: update binaries on v1-binaries branch"
             # 4. EXPLICITLY use the token in the push URL
-            git push https://x-access-token:${NODE_REPO_PAT}@github.com/jay6909/node_email_verifier buildsync
+            git push https://x-access-token:${NODE_REPO_PAT}@github.com/jay6909/node_email_verifier v1-binaries
           else
             echo "No changes detected, skipping push."
           fi
