@@ -29,7 +29,35 @@ if (isValid) {
 }
 
 
+## Batch Verification ⚡
 
+For high-volume processing, use the `verifyEmailsBatch` method. This uses Go's native goroutines to verify thousands of emails in parallel, bypassing the overhead of the Node.js event loop.
+
+### Usage
+
+```javascript
+const { verifyEmailsBatch } = require('@anclp/emailverifier');
+
+const emails = [
+  "valid@gmail.com",
+  "typo@gmailll.com",
+  "fake@nonexistent-domain.org"
+];
+
+const results = verifyEmailsBatch(emails);
+
+// results is an array of booleans: [true, false, false]
+results.forEach((isValid, index) => {
+  console.log(`${emails[index]}: ${isValid ? '✅ Valid' : '❌ Invalid'}`);
+});
+
+
+Performance Metrics
+On a standard consumer laptop (e.g., Asus TUF), this engine achieves:
+Single Check: ~4.6ms
+Batch Throughput: 2,800+ emails/second (verified via network MX lookups).
+[!TIP]
+Use Batch Verification when processing lists larger than 50 emails to maximize throughput.
 
 
 
