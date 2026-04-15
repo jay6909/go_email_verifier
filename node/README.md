@@ -5,7 +5,6 @@
 [![NPM Downloads](https://img.shields.io/npm/dm/@anclp/node_email_verifier)](https://www.npmjs.com/package/@anclp/node_email_verifier)
 [![Publish to npm](https://github.com/jay6909/node_email_verifier/actions/workflows/release.yml/badge.svg)](https://github.com/jay6909/node_email_verifier/actions/workflows/release.yml)
 
-
 Ultra-fast email verification for Node.js, powered by a Go-compiled native engine.
 
 ## Installation
