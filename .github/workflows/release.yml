@@ -65,6 +65,7 @@ jobs:
           cp bins/libverifier-macos-latest/libverifier.dylib node_dest/
           
           cd node_dest
+          npm version patch --no-git-tag-version
           git add .
           # 3. Commit only if there are changes
           if [ -n "$(git status --porcelain)" ]; then
