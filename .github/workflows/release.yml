@@ -56,7 +56,6 @@ jobs:
   publish:
     needs: build # Wait for all OS builds to finish
     runs-on: ubuntu-latest
-    environment: NPM_TOKEN
     permissions:
       contents: read
       id-token: write 
@@ -85,4 +84,4 @@ jobs:
       - name: Publish to npm
         run: |
           cd node
-          npm publish --provenance
+          npm publish --access public --provenance
