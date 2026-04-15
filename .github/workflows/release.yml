@@ -66,4 +66,11 @@ jobs:
           
           cd node_dest
           git add .
-          git diff-index --quiet HEAD || (git commit -m "chore: update binaries" && git push)
+          # 3. Commit only if there are changes
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "chore: update binaries from core"
+            # 4. EXPLICITLY use the token in the push URL
+            git push https://x-access-token:${NODE_REPO_PAT}@github.com/jay6909/node_email_verifier main
+          else
+            echo "No changes detected, skipping push."
+          fi
