@@ -1,0 +1,11 @@
+dist
+build
+*.so
+*.dll
+*.dylib
+*.pyc
+*.egg-info/
+*.log
+*.tar.gz
+*.zip   
+libverifier.h

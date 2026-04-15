@@ -1,0 +1,79 @@
+name: Build Cross-Platform Binaries
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build for ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        # matrix of OS and their corresponding library extensions
+        include:
+          - os: ubuntu-latest
+            ext: so
+          - os: windows-latest
+            ext: dll
+          - os: macos-latest
+            ext: dylib
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24.6' 
+
+      - name: Install C Compiler (Linux Only)
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get update && sudo apt-get install -y build-essential
+
+      - name: Build Shared Library
+        # CGO_ENABLED=1 is required for c-shared mode
+        run: |
+          go build -o libverifier.${{ matrix.ext }} -buildmode=c-shared .
+          # Move it to the Python package folder
+          cp libverifier.${{ matrix.ext }} python/verifier/
+          
+          # Move it to the Node package folder
+          cp libverifier.${{ matrix.ext }} node/
+        env:
+          CGO_ENABLED: 1
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: libverifier-${{ matrix.os }}
+          path: |
+            libverifier.${{ matrix.ext }}
+            libverifier.h
+  publish:
+    needs: build # Wait for all OS builds to finish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download all binaries
+        uses: actions/download-artifact@v4
+        with:
+          path: ./temp-bins # This gets all .so, .dll, .dylib files
+
+      - name: Organize files
+        run: |
+          # Copy every binary into the package folders
+          cp ./temp-bins/libverifier-ubuntu-latest/libverifier.so node/
+          cp ./temp-bins/libverifier-windows-latest/libverifier.dll node/
+          cp ./temp-bins/libverifier-macos-latest/libverifier.dylib node/
+          # Repeat for python/verifier/
+          
+      - name: Publish to npm
+        run: |
+          cd node
+          npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
+          npm publish --access public
