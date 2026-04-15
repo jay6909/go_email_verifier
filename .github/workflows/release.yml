@@ -85,4 +85,4 @@ jobs:
       - name: Publish to npm
         run: |
           cd node
-          npm publish --access public
+          npm publish --provenance
