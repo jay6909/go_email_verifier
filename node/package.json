@@ -1,5 +1,5 @@
 {
-  "name": "emailverifier",
+  "name": "@jayaditya/emailverifier",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {

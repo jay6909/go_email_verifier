@@ -56,6 +56,9 @@ jobs:
   publish:
     needs: build # Wait for all OS builds to finish
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write 
     steps:
       - uses: actions/checkout@v4
       
@@ -75,5 +78,4 @@ jobs:
       - name: Publish to npm
         run: |
           cd node
-          npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
           npm publish --access public
