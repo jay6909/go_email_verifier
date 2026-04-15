@@ -56,6 +56,7 @@ jobs:
   publish:
     needs: build # Wait for all OS builds to finish
     runs-on: ubuntu-latest
+    environment: NPM_TOKEN
     permissions:
       contents: read
       id-token: write 
@@ -80,7 +81,7 @@ jobs:
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org/' 
-          
+
       - name: Publish to npm
         run: |
           cd node
