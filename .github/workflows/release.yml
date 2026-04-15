@@ -58,7 +58,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
           # Replace with your actual new repo name
-          git clone https://x-access-token:${NODE_REPO_PAT}@://github.com node_dest
+          git clone https://x-access-token:${NODE_REPO_PAT}@://github.com/jay6909/node-email-verifier node_dest
           
           cp bins/libverifier-ubuntu-latest/libverifier.so node_dest/
           cp bins/libverifier-windows-latest/libverifier.dll node_dest/
