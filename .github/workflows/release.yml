@@ -74,6 +74,12 @@ jobs:
           cp ./temp-bins/libverifier-windows-latest/libverifier.dll node/
           cp ./temp-bins/libverifier-macos-latest/libverifier.dylib node/
           # Repeat for python/verifier/
+      
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org/' 
           
       - name: Publish to npm
         run: |
