@@ -4,6 +4,7 @@ import (
 	"context"
 	"net"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -41,4 +42,21 @@ func Verify(email string) (*Result, error) {
 		res.IsValid = true
 	}
 	return res, nil
+}
+
+func VerifyBatch(emails []string) []bool {
+	results := make([]bool, len(emails))
+	var wg sync.WaitGroup
+
+	for i, email := range emails {
+		wg.Add(1)
+		go func(index int, e string) {
+			defer wg.Done()
+			res, _ := Verify(e) // Your existing Verify function
+			results[index] = res.IsValid
+		}(i, email)
+	}
+
+	wg.Wait()
+	return results
 }
