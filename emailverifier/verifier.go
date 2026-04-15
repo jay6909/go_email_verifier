@@ -33,7 +33,7 @@ func Verify(email string) (*Result, error) {
 	if err != nil {
 		res.HasMXRecords = false
 		res.IsValid = false
-		return res, nil // Return 0/False instead of crashing
+		return res, err
 	}
 
 	if len(mx) > 0 {

@@ -1,6 +1,6 @@
 {
   "name": "@anclp/node_email_verifier",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -11,8 +11,9 @@
     "access": "public"
   },
   "author": "",
+  "keywords": ["email verifier", "utility", "mxlookup", "domain validity"],
   "license": "ISC",
-  "description": "",
+  "description": "a node module to verify email addresses by checking their MX records, uses go for the heavy lifting",
   "dependencies": {
     "koffi": "^2.16.0",
     "ref-napi": "^3.0.3"
