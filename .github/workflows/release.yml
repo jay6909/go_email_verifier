@@ -2,9 +2,10 @@ name: Build cross platform binaries and sync to repos
 
 on:
   push:
-    branches: [ main ]
+    tags:
+      - 'v*' # Triggers on any tag starting with 'v' (e.g., v1.0.1)
   pull_request:
-    branches: [ main ]
+    branches: [ release ]
 
 jobs:
   build:
@@ -43,13 +44,14 @@ jobs:
 
   sync: # This must be at the same indentation as 'build'
     needs: build
+    if: startsWith(github.ref, 'refs/tags/') 
     runs-on: ubuntu-latest
     steps:
       - name: Download all binaries
         uses: actions/download-artifact@v4
         with:
           path: ./bins
-      
+          merge-multiple: true
       - name: Push to Node Repo
         env:
           NODE_REPO_PAT: ${{ secrets.NODE_EMAIL_VERIFIER_REPO_PAT }}
@@ -65,14 +67,12 @@ jobs:
           cp bins/libverifier-macos-latest/libverifier.dylib node_dest/
           
           cd node_dest
-          git checkout -b v1-binaries
-          npm version patch --no-git-tag-version
           git add .
           # 3. Commit only if there are changes
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "chore: update binaries on v1-binaries branch"
+            git commit -m "chore: sync binaries from core ${{ github.ref_name }}"
             # 4. EXPLICITLY use the token in the push URL
-            git push https://x-access-token:${NODE_REPO_PAT}@github.com/jay6909/node_email_verifier v1-binaries
+            git push https://x-access-token:${NODE_REPO_PAT}@github.com/jay6909/node_email_verifier 
           else
             echo "No changes detected, skipping push."
           fi
