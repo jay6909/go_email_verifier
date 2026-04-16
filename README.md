@@ -17,3 +17,19 @@ Go's networking stack and concurrency allow us to perform DNS (MX record) lookup
 - `/emailverifier`: Core Go logic.
 - `main.go`: The C-Bridge for cross-language support.
 - `.github/workflows`: Automated build and sync pipeline.
+
+## 📦 Official Wrappers
+Use these libraries to integrate the engine into your project:
+- **Node.js**: [jay6909/node_email_verifier](https://github.com)
+- **Python**: *(Coming Soon)*
+- **PHP**: *(Coming Soon)*
+
+## 🛠 Local Development
+To compile the shared libraries manually, you need Go 1.21+ installed:
+
+```bash
+# For Linux (.so)
+go build -o libverifier.so -buildmode=c-shared main.go
+
+# For Windows (.dll)
+go build -o libverifier.dll -buildmode=c-shared main.go
