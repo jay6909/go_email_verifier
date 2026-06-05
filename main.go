@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"net"
 
-	"github.com/jay6909/go_email_verifier/emailverifier"
+	"github.com/jay6909/saveduser/emailverifier"
 )
 
 //export Verify
